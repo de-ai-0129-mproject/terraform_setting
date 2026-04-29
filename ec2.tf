@@ -42,7 +42,7 @@ resource "aws_instance" "backend" {
   associate_public_ip_address = true
 
   root_block_device {
-    volume_size = 20
+    volume_size = 30
     volume_type = "gp3"
     encrypted   = true
   }
@@ -62,10 +62,10 @@ resource "aws_instance" "backend" {
     dnf install -y nodejs
 
     # pm2 전역 설치 (ec2-user 권한으로)
-    sudo -u ec2-user bash -c 'npm install -g pm2'
+    npm install -g pm2
 
     # pm2 부팅 시 자동 시작 설정
-    sudo -u ec2-user bash -c 'pm2 startup systemd -u ec2-user --hp /home/ec2-user' | tail -1 | bash
+    sudo -u ec2-user bash -c 'pm2 startup systemd -u ec2-user --hp /home/ec2-user' | tail -1 | sudo bash
 
     # 작업 디렉터리
     sudo -u ec2-user mkdir -p /home/ec2-user/apps
