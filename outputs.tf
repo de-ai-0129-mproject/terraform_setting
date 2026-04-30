@@ -107,3 +107,13 @@ output "outbox_poller_function_arn" {
   description = "Outbox Poller Lambda ARN"
   value       = aws_lambda_function.outbox_poller.arn
 }
+
+output "mmr_calculator_function_name" {
+  description = "MMR Calculator Lambda 함수 이름"
+  value       = aws_lambda_function.mmr_calculator.function_name
+}
+
+output "mmr_calculator_function_arn" {
+  description = "MMR Calculator Lambda ARN"
+  value       = aws_lambda_function.mmr_calculator.arn
+}
