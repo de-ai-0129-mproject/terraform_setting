@@ -127,7 +127,8 @@
 |---|---|
 | `match_outbox` | 백엔드가 매치 INSERT 시 같이 INSERT, Poller가 폴링 |
 | `processed_matches` | 멱등성 (이미 처리된 매치 추적) |
-| `player_mmr` | 길드별 플레이어 MMR (UNIQUE puuid+guild_id) |
+| `player_mmr` | 길드별 플레이어 누적 MMR (UNIQUE puuid+guild_id) |
+| `mmr_history` | 매치별 MMR 변동 이력 (UNIQUE custom_match_id+puuid) |
 
 ---
 
@@ -264,7 +265,7 @@ terraform destroy
 3. Outbox Poller가 SQS에 발행 + `published=true` 마킹
 4. SQS Event Source Mapping으로 MMR Calculator 즉시 호출
 5. MMR Calculator가 ELO 기반 MMR 계산
-6. `player_mmr` UPSERT, `processed_matches` INSERT
+6. `player_mmr` UPSERT (누적), `mmr_history` INSERT (매치별 변동), `processed_matches` INSERT (멱등성)
 7. S3 `matches/`에 raw JSON, `results/`에 HTML 떨어짐
 8. HTML 다운로드해서 브라우저에서 확인 → 매치 결과 + MMR 변동 시각화
 
