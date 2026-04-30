@@ -15,7 +15,7 @@
 ### 보안 그룹
 | 이름 | 인바운드 | 용도 |
 |---|---|---|
-| `mmr-backend-sg` | SSH(본인 IP), HTTP/HTTPS, 3000, 8080 | EC2 백엔드 |
+| `mmr-backend-sg` | SSH(본인 IP), HTTP/HTTPS, 3000, 19901 | EC2 백엔드 |
 | `mmr-rds-sg` | 5432 (backend SG, lambda SG 참조) | RDS |
 | `mmr-lambda-sg` | 없음 (outbound only) | Lambda VPC 연결용 |
 
