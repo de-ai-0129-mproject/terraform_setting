@@ -62,3 +62,28 @@ output "rds_secret_arn" {
   description = "RDS 비밀번호 Secrets Manager ARN (백엔드/Lambda가 이걸로 비번 가져감)"
   value       = aws_db_instance.main.master_user_secret[0].secret_arn
 }
+
+output "match_queue_url" {
+  description = "메인 SQS 큐 URL"
+  value       = aws_sqs_queue.match_queue.url
+}
+
+output "match_queue_arn" {
+  description = "메인 SQS 큐 ARN"
+  value       = aws_sqs_queue.match_queue.arn
+}
+
+output "match_dlq_url" {
+  description = "DLQ URL"
+  value       = aws_sqs_queue.match_dlq.url
+}
+
+output "match_dlq_arn" {
+  description = "DLQ ARN"
+  value       = aws_sqs_queue.match_dlq.arn
+}
+
+output "alarm_topic_arn" {
+  description = "SNS 알람 토픽 ARN"
+  value       = aws_sns_topic.alarms.arn
+}

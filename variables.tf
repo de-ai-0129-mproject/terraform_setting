@@ -76,3 +76,8 @@ variable "db_allocated_storage" {
   default     = 20
 }
 
+variable "alarm_email" {
+  description = "DLQ 알람 받을 이메일 주소"
+  type        = string
+  default     = "yly0617@naver.com"
+}
