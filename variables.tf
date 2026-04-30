@@ -81,3 +81,9 @@ variable "alarm_email" {
   type        = string
   default     = "yly0617@naver.com"
 }
+
+variable "name_prefix" {
+  description = "신규 리소스 이름 prefix (사용자 식별)"
+  type        = string
+  default     = "de-ai-01"
+}
