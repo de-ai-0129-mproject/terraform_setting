@@ -117,6 +117,44 @@ def upsert_mmrs(
       )
 
 
+def insert_mmr_history(
+  conn,
+  custom_match_id: str,
+  guild_id: str,
+  mmr_results: list[dict],
+  participants: list[dict],
+) -> None:
+  """매치별 MMR 변동 이력 INSERT."""
+  # puuid → participant 매핑
+  p_by_puuid = {p['puuid']: p for p in participants}
+
+  with conn.cursor() as cur:
+    for r in mmr_results:
+      p = p_by_puuid.get(r['puuid'])
+      if not p:
+        continue
+      cur.execute(
+        """
+                INSERT INTO mmr_history (
+                    custom_match_id, puuid, guild_id,
+                    pre_mmr, post_mmr, delta,
+                    game_result, position
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                ON CONFLICT (custom_match_id, puuid) DO NOTHING
+                """,
+        (
+          custom_match_id,
+          r['puuid'],
+          guild_id,
+          r['pre_mmr'],
+          r['post_mmr'],
+          r['delta'],
+          p['game_result'],
+          p['position'],
+        ),
+      )
+
+
 def mark_processed(
   conn,
   custom_match_id: str,
@@ -192,6 +230,7 @@ def process_match(message_body: str, request_id: str) -> dict:
     # 5. DB 갱신 (단일 트랜잭션)
     win_puuids = {p['puuid'] for p in participants if p['game_result'] == '승'}
     upsert_mmrs(conn, guild_id, custom_match_id, mmr_results, win_puuids)
+    insert_mmr_history(conn, custom_match_id, guild_id, mmr_results, participants)
     mark_processed(conn, custom_match_id, request_id, html_key)
     conn.commit()
 
