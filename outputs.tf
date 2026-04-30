@@ -87,3 +87,13 @@ output "alarm_topic_arn" {
   description = "SNS 알람 토픽 ARN"
   value       = aws_sns_topic.alarms.arn
 }
+
+output "s3_bucket_name" {
+  description = "데이터 S3 버킷 이름"
+  value       = aws_s3_bucket.data.id
+}
+
+output "s3_bucket_arn" {
+  description = "데이터 S3 버킷 ARN"
+  value       = aws_s3_bucket.data.arn
+}
