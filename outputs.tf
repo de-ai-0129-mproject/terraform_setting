@@ -97,3 +97,13 @@ output "s3_bucket_arn" {
   description = "데이터 S3 버킷 ARN"
   value       = aws_s3_bucket.data.arn
 }
+
+output "outbox_poller_function_name" {
+  description = "Outbox Poller Lambda 함수 이름"
+  value       = aws_lambda_function.outbox_poller.function_name
+}
+
+output "outbox_poller_function_arn" {
+  description = "Outbox Poller Lambda ARN"
+  value       = aws_lambda_function.outbox_poller.arn
+}
