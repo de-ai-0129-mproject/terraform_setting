@@ -27,6 +27,7 @@ resource "aws_lambda_function" "outbox_poller" {
       RDS_DB        = aws_db_instance.main.db_name
       SQS_URL       = aws_sqs_queue.match_queue.url
       DEFAULT_LIMIT = "100"
+      SERVICE_NAME  = "outbox-poller"
     }
   }
 

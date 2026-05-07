@@ -26,6 +26,7 @@ resource "aws_lambda_function" "mmr_calculator" {
       RDS_HOST   = aws_db_instance.main.address
       RDS_DB     = aws_db_instance.main.db_name
       S3_BUCKET  = aws_s3_bucket.data.id
+      SERVICE_NAME = "mmr-calculator"
     }
   }
 
