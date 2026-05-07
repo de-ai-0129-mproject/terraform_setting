@@ -25,6 +25,8 @@ pip install `
 
 Write-Host "Copying handler files..."
 Copy-Item handler.py $BuildDir\
+Copy-Item errors.py $BuildDir\
+Copy-Item logger.py $BuildDir\
 Copy-Item mmr.py $BuildDir\
 Copy-Item champions.py $BuildDir\
 Copy-Item html_template.py $BuildDir\

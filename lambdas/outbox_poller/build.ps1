@@ -30,6 +30,8 @@ pip install `
 # 핸들러 코드 복사
 Write-Host "Copying handler..."
 Copy-Item handler.py $BuildDir\
+Copy-Item errors.py $BuildDir\
+Copy-Item logger.py $BuildDir\
 
 # zip 생성
 Write-Host "Creating zip..."
